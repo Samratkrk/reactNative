@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Login from './LoginComponent';
 import Home from './HomeComponent';
 import Directory from './DirectoryComponent';
 import About from './AboutComponent';
@@ -166,6 +167,29 @@ const DirectoryNavigator = createStackNavigator (
     }
 );
 
+const LoginNavigator = createStackNavigator(
+    {
+        Login: { screen: Login }
+    },
+    {
+        defaultNavigationOptions: ({navigation}) => ({
+            headerStyle: {
+                backgroundColor: '#5637DD'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            },
+            headerLeft: <Icon
+                name='sign-in'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
+    }
+);
+
 const HomeNavigator = createStackNavigator(
     {
         Home: { screen: Home }
@@ -191,6 +215,19 @@ const HomeNavigator = createStackNavigator(
 
 const MainNavigator = createDrawerNavigator(
     {
+        Login: {
+            screen: LoginNavigator,
+            navigationOptions: {
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='sign-in'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        },
         Home: {
             screen: HomeNavigator,
             navigationOptions: {
@@ -275,6 +312,7 @@ const MainNavigator = createDrawerNavigator(
         }
     },
     {
+        initialRouteName: 'Home',
         drawerBackgroundColor: '#CEC8FF',    
         contentComponent: CustomDrawerContentComponent
     }
